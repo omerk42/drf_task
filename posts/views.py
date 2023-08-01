@@ -1,7 +1,8 @@
-from .serializers import User_Login_Serializer, User_SignUp_Serializer
+from .serializers import User_Login_Serializer, User_SignUp_Serializer, PostSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth.models import User
-from rest_framework.permissions import AllowAny
+from .models import Post
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework import generics
 # Create your views here.
 
@@ -17,3 +18,15 @@ class User_SignUp_Serializer_View(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = User_SignUp_Serializer
     permission_classes = (AllowAny,)
+
+
+class Post_Create_View(generics.ListCreateAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+
+class Post_Update_Delete_View(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    permission_classes = [IsAuthenticated]

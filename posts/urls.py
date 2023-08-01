@@ -7,4 +7,6 @@ urlpatterns = [
     path("signup", views.User_SignUp_Serializer_View.as_view(), name="user-signup"),
     path("token/verify", TokenVerifyView.as_view(), name='token_verify'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('post', views.Post_Create_View.as_view(), name='post'),
+    path('post/<int:pk>', views.Post_Update_Delete_View.as_view(), name='post-opr'),
 ]

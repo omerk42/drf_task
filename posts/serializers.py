@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from .models import Post
 from django.db.models import Q
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -68,3 +69,12 @@ class User_Login_Serializer(serializers.ModelSerializer):
             else:
                 raise exceptions.AuthenticationFailed(
                     detail="Wrong password")
+
+
+class PostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = (
+            'title',
+            'description',
+        )

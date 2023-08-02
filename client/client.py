@@ -110,8 +110,13 @@ while flag == True:
 
     match OP0:
         case '1':
+            userName = input("enter new user username \n")
+            userEmail = input("enter new user email \n")
+            userPassword = input("enter new user password \n")
             CreateUser(userName, userEmail, userPassword)
         case '2':
+            userEmail = input("enter user email \n")
+            userPassword = input("enter user password \n")
             LoginUser(userEmail, userPassword)
         case '3':
             GetPosts()
@@ -120,6 +125,8 @@ while flag == True:
             GetOnePost(postId)
         case '5':
             tokens = LoginUser(userEmail, userPassword)
+            postTitle = input("enter new post title \n")
+            postDesc = input("enter new post desc \n")
             CreatePost(tokens[0], postTitle, postDesc)
         case '6':
             tokens = LoginUser(userEmail, userPassword)

@@ -4,7 +4,18 @@ from django.contrib.auth.models import User
 from .models import Post
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework import generics
+from rest_framework.permissions import BasePermission
 # Create your views here.
+
+
+class IsOwnerOrReadOnly(BasePermission):
+    def has_object_permission(self, request, view, obj):
+        # Allow GET, HEAD, and OPTIONS requests to any user
+        if request.method in ['GET', 'HEAD', 'OPTIONS']:
+            return True
+
+        # Allow DELETE and PUT requests only if the user is the owner of the post
+        return obj.user == request.user
 
 
 class User_Login_Serializer_View(TokenObtainPairView):
@@ -29,4 +40,4 @@ class Post_Create_View(generics.ListCreateAPIView):
 class Post_Update_Delete_View(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly]

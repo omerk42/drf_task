@@ -88,7 +88,7 @@ def DeletePost(access_token, postId):
 
 
 userName = "blank"
-userEmail = "blank@test.com"
+userEmail = "test@test.com"
 userPassword = 1234567
 
 postTitle = "post title test1"

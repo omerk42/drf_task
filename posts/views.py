@@ -8,9 +8,6 @@ from rest_framework import generics
 
 
 class User_Login_Serializer_View(TokenObtainPairView):
-    """
-    Custom Access token View
-    """
     serializer_class = User_Login_Serializer
 
 
@@ -25,8 +22,11 @@ class Post_Create_View(generics.ListCreateAPIView):
     serializer_class = PostSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
 
 class Post_Update_Delete_View(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
